@@ -9,9 +9,14 @@ describe "Static pages" do
       expect(page).to have_content('Fuel Tracker')
     end
 
-    it "should have the right title" do
+    it "should have the base title" do
       visit '/static_pages/home'
-      expect(page).to have_title("Fuel Tracker | Home")
+      expect(page).to have_title("Fuel Tracker")
+    end
+
+    it "should not have a custom title" do
+      visit '/static_pages/home'
+      expect(page).not_to have_title("| Home")
     end
 
   end
