@@ -33,4 +33,7 @@ FuelTracker::Application.configure do
 
   # Print deprecation notices to the stderr.
   config.active_support.deprecation = :stderr
+
+  # Lower bcrypt's cost in order to speed up tests
+  ActiveModel::SecurePassword.min_cost = true
 end
