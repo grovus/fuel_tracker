@@ -1,0 +1,16 @@
+<%= render 'shared/error_messages', object: f.object %>
+
+<%= f.label :name %>
+<%= f.text_field :name, value: 'My New Vehicle' %>
+
+<%= f.label :make %>
+<%= f.text_field :make %>
+
+<%= f.label :model %>
+<%= f.text_field :model %>
+
+<%= f.label :year %>
+<%= f.number_field :year, value: Time.now.year, in: 1900..(Time.now.year+1) %>
+
+<%= f.label :odometer %>
+<%= f.number_field :odometer %>

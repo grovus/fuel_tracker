@@ -1,0 +1,11 @@
+<li id="vehicle_<%= vehicle.id %>">
+  <span class="name"><%= link_to vehicle.name, vehicle %></span>
+  <span class="timestamp">
+    Last filled up <%= time_ago_in_words(vehicle.updated_at) %> ago.
+  </span>
+  <% if current_user?(vehicle.user) %>
+  	<%= link_to "delete", vehicle, method: :delete, 
+  								   data: { confirm: "You sure bout this cap'n?" },
+                                   title: vehicle.name %>
+  <% end %>
+</li>

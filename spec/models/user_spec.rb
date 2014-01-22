@@ -15,6 +15,8 @@ describe User do
 	it { should respond_to(:remember_token) }
 	it { should respond_to(:authenticate) }
 	it { should respond_to(:admin) }
+	it { should respond_to(:vehicles) }
+	it { should respond_to(:feed) }
 
 	it { should be_valid }
 	it { should_not be_admin }
@@ -122,4 +124,39 @@ describe User do
 		before { @user.save }
 		its(:remember_token) { should_not be_blank }
 	end
+
+	describe "vehicle association" do
+		before { @user.save }
+		let!(:older_vehicle) do
+			FactoryGirl.create(:vehicle, user: @user, year: 20.years.ago)
+		end
+		let!(:newer_vehicle) do
+			FactoryGirl.create(:vehicle, user: @user, year: 2.years.ago)
+		end
+
+		it "should have the right vehicle ordering" do
+			expect(@user.vehicles.to_a).to eq [newer_vehicle, older_vehicle]
+		end
+
+		it "should destroy associated vehicles" do
+			vehicles = @user.vehicles.to_a
+			@user.destroy
+			expect(vehicles).not_to be_empty
+			vehicles.each do |vehicle|
+				expect(Vehicle.where(id: vehicle.id)).to be_empty
+			end
+		end
+
+		describe "status" do
+			let(:unowned_vehicle) do
+				FactoryGirl.create(:vehicle, user: FactoryGirl.create(:user), year: 5.years.ago)
+			end
+
+			its(:feed) { should include(older_vehicle) }
+			its(:feed) { should include(newer_vehicle) }
+			its(:feed) { should_not include(unowned_vehicle) }
+		end
+
+	end
+
 end

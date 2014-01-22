@@ -1,0 +1,19 @@
+<% provide(:title, @vehicle.name) %>
+<div class="row">
+  <aside class="span4">
+    <section>
+      <h1>
+        <%= gravatar_for @vehicle.user %>
+        <%= @vehicle.user.name %>
+      </h1>
+    </section>
+  </aside>
+  <div class="span8">
+    <ul class="vehicles">
+      <li><h3><%= @vehicle.name %><h3></li>
+      <li><%= @vehicle.year %> <%= @vehicle.make %> <%= @vehicle.model %></li>
+      <li><%= @vehicle.odometer %> km</li>
+    </ul>
+  </div>  
+  <%= link_to "Add Fillup", '#', class: "btn btn-large btn-success" %>
+</div>

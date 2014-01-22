@@ -1,0 +1,7 @@
+<% if @vehicles.any? %>
+  <h3>Vehicles (<%= @vehicles.count %>)</h3>
+  <ol class="vehicles">
+    <%= render @vehicles %>
+  </ol>
+  <%= will_paginate @vehicles %>
+<% end %>

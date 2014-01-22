@@ -9,4 +9,12 @@ FactoryGirl.define do
       admin true
     end
   end
+
+  factory :vehicle do
+  	make "Test Make"
+  	model "Test Model"
+  	name "Test Name"
+  	year 1970
+  	user
+  end
 end

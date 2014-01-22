@@ -55,6 +55,7 @@ describe "Authentication" do
 
     describe "for non-signed-in users" do
       let(:user) { FactoryGirl.create(:user) }
+      let(:vehicle) { FactoryGirl.create(:vehicle) }
 
       describe "in the Users controller" do
 
@@ -71,6 +72,35 @@ describe "Authentication" do
         describe "visiting the user index" do
           before { visit users_path }
           it { should have_title('Sign in') }
+        end
+
+      end
+
+      describe "in the Vehicles controller" do
+
+        describe "submitting an edit action" do
+          before { get edit_vehicle_path(vehicle) }
+          specify { expect(response).to redirect_to(signin_path) }
+        end
+
+        describe "submitting a show action" do
+          before { get vehicle_path(vehicle) }
+          specify { expect(response).to redirect_to(signin_path) }
+        end
+
+        describe "submitting an update action" do
+          before { patch vehicle_path(vehicle) }
+          specify { expect(response).to redirect_to(signin_path) }
+        end
+
+        describe "submitting a destroy action" do
+          before { delete vehicle_path(vehicle) }
+          specify { expect(response).to redirect_to(signin_path) }
+        end
+
+        describe "submitting a new action" do
+          before { get new_vehicle_path }
+          specify { expect(response).to redirect_to(signin_path) }
         end
 
       end
